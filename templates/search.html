@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2 style="color: #667eea; margin-bottom: 2rem;">Search Members</h2>
+    
+    <form method="GET" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; margin-bottom: 2rem;">
+        <input type="text" name="q" placeholder="Search by name..." value="{{ query or '' }}" style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+        
+        <select name="gender" style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+            <option value="">All Genders</option>
+            <option value="Male" {% if request.args.get('gender') == 'Male' %}selected{% endif %}>Male</option>
+            <option value="Female" {% if request.args.get('gender') == 'Female' %}selected{% endif %}>Female</option>
+        </select>
+        
+        <input type="text" name="location" placeholder="Location..." value="{{ request.args.get('location', '') }}" style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+        
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
+    {% if users %}
+    <div class="profile-grid">
+        {% for user in users %}
+        <div class="profile-card">
+            {% if user.profile_photo %}
+            <img src="{{ url_for('static', filename='uploads/' + user.profile_photo) }}" alt="{{ user.first_name }}">
+            {% else %}
+            <img src="https://via.placeholder.com/250x250?text={{ user.first_name[0] }}" alt="{{ user.first_name }}">
+            {% endif %}
+            
+            <div class="profile-card-content">
+                <h3>{{ user.first_name }}, {{ (now.year - user.date_of_birth.year) if user.date_of_birth else 'N/A' }}</h3>
+                <p>{{ user.location or 'Location not specified' }}</p>
+                <p style="margin-top: 0.5rem;">{{ user.bio[:100] if user.bio else 'No bio yet' }}...</p>
+                <a href="{{ url_for('view_profile', user_id=user.id) }}" class="btn btn-primary" style="width: 100%; margin-top: 1rem; text-align: center;">View Profile</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p style="text-align: center; color: #666;">No members found. Try adjusting your search criteria.</p>
+    {% endif %}
+</div>
+{% endblock %}

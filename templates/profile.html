@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="max-width: 800px; margin: 2rem auto;">
+    <div style="display: grid; grid-template-columns: 300px 1fr; gap: 2rem;">
+        <div>
+            {% if user.profile_photo %}
+            <img src="{{ url_for('static', filename='uploads/' + user.profile_photo) }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
+            {% else %}
+            <img src="https://via.placeholder.com/300x400?text={{ user.first_name[0] }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
+            {% endif %}
+        </div>
+        
+        <div>
+            <h2 style="color: #667eea; margin-bottom: 0.5rem;">{{ user.first_name }} {{ user.last_name }}</h2>
+            <p style="color: #666; margin-bottom: 1rem;">
+                {% if user.date_of_birth %}
+                {{ (now.year - user.date_of_birth.year) }} years old
+                {% endif %}
+                {% if user.location %} • {{ user.location }}{% endif %}
+            </p>
+            
+            {% if user.denomination %}
+            <p style="margin-bottom: 0.5rem;"><strong>Denomination:</strong> {{ user.denomination }}</p>
+            {% endif %}
+            
+            {% if user.looking_for %}
+            <p style="margin-bottom: 0.5rem;"><strong>Looking for:</strong> {{ user.looking_for }}</p>
+            {% endif %}
+            
+            {% if user.bio %}
+            <div style="margin: 1.5rem 0;">
+                <h3 style="margin-bottom: 0.5rem;">About Me</h3>
+                <p style="color: #666;">{{ user.bio }}</p>
+            </div>
+            {% endif %}
+            
+            {% if user.interests %}
+            <div style="margin: 1.5rem 0;">
+                <h3 style="margin-bottom: 0.5rem;">Interests</h3>
+                <p style="color: #666;">{{ user.interests }}</p>
+            </div>
+            {% endif %}
+            
+            {% if user.id != session.user_id %}
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button onclick="likeUser({{ user.id }})" class="btn btn-primary" id="likeBtn" {% if already_liked %}disabled{% endif %}>
+                    {% if already_liked %}Liked{% else %}Like{% endif %}
+                </button>
+                <a href="{{ url_for('conversation', user_id=user.id) }}" class="btn btn-secondary">Send Message</a>
+            </div>
+            {% else %}
+            <a href="{{ url_for('edit_profile') }}" class="btn btn-primary" style="margin-top: 2rem;">Edit Profile</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function likeUser(userId) {
+    fetch(`/like/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('likeBtn').disabled = true;
+            document.getElementById('likeBtn').textContent = 'Liked';
+            if (data.match) {
+                alert("It's a match! You can now message each other.");
+            }
+        }
+    });
+}
+</script>
+{% endblock %}

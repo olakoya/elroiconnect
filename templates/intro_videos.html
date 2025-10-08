@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2 style="color: #667eea; margin-bottom: 2rem;">Introduction Videos</h2>
+    <p style="margin-bottom: 2rem; color: #666;">
+        Please watch at least 2 videos before proceeding to registration.
+    </p>
+    
+    <div style="display: grid; gap: 2rem; margin-bottom: 2rem;">
+        <div>
+            <h3>Video 1: About ElroiConnect</h3>
+            <video id="video1" width="100%" height="300" controls style="background: #000; border-radius: 5px;">
+                <source src="/static/videos/intro1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div>
+            <h3>Video 2: Community Guidelines</h3>
+            <video id="video2" width="100%" height="300" controls style="background: #000; border-radius: 5px;">
+                <source src="/static/videos/intro2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div>
+            <h3>Video 3: Safety and Privacy</h3>
+            <video id="video3" width="100%" height="300" controls style="background: #000; border-radius: 5px;">
+                <source src="/static/videos/intro3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    
+    <div style="text-align: center;">
+        <p id="videoCount" style="margin-bottom: 1rem; color: #666;">Videos watched: <strong>0/3</strong></p>
+        <form action="{{ url_for('register') }}" method="GET">
+            <input type="hidden" name="videos_watched" id="videosWatched" value="0">
+            <button type="submit" id="proceedBtn" class="btn btn-primary" disabled>
+                Proceed to Registration
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let watchedVideos = new Set();
+    
+    document.querySelectorAll('video').forEach((video, index) => {
+        video.addEventListener('ended', function() {
+            watchedVideos.add(index);
+            updateCount();
+        });
+    });
+    
+    function updateCount() {
+        const count = watchedVideos.size;
+        document.getElementById('videoCount').innerHTML = `Videos watched: <strong>${count}/3</strong>`;
+        document.getElementById('videosWatched').value = count;
+        
+        if (count >= 2) {
+            document.getElementById('proceedBtn').disabled = false;
+        }
+    }
+</script>
+{% endblock %}

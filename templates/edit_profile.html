@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="max-width: 700px; margin: 2rem auto;">
+    <h2 style="color: #667eea; margin-bottom: 2rem;">Edit Your Profile</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Profile Photo</label>
+            {% if user.profile_photo %}
+            <img src="{{ url_for('static', filename='uploads/' + user.profile_photo) }}" alt="Current photo" style="width: 200px; border-radius: 10px; margin-bottom: 1rem;">
+            {% endif %}
+            <input type="file" name="profile_photo" accept="image/*">
+        </div>
+        
+        <div class="form-group">
+            <label>Location</label>
+            <input type="text" name="location" value="{{ user.location or '' }}" placeholder="City, Country">
+        </div>
+        
+        <div class="form-group">
+            <label>Denomination</label>
+            <input type="text" name="denomination" value="{{ user.denomination or '' }}" placeholder="e.g., Baptist, Catholic, Non-denominational">
+        </div>
+        
+        <div class="form-group">
+            <label>Looking For</label>
+            <select name="looking_for">
+                <option value="">Select...</option>
+                <option value="Friendship" {% if user.looking_for == 'Friendship' %}selected{% endif %}>Friendship</option>
+                <option value="Dating" {% if user.looking_for == 'Dating' %}selected{% endif %}>Dating</option>
+                <option value="Serious Relationship" {% if user.looking_for == 'Serious Relationship' %}selected{% endif %}>Serious Relationship</option>
+                <option value="Marriage" {% if user.looking_for == 'Marriage' %}selected{% endif %}>Marriage</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Bio</label>
+            <textarea name="bio" placeholder="Tell others about yourself...">{{ user.bio or '' }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Interests</label>
+            <textarea name="interests" placeholder="Your hobbies, interests, and passions...">{{ user.interests or '' }}</textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Changes</button>
+    </form>
+</div>
+{% endblock %}
