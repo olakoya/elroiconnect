@@ -93,13 +93,13 @@ app.config['SECRET_KEY'] = 'your-actual-secret-key-here-make-it-random-and-long'
 
 1. **Initialize the database** (first time only):
 ```bash
-python app.py
+python3 app.py
 ```
 This will create the SQLite database file `elroiconnect.db`
 
 2. **Run the development server**:
 ```bash
-python app.py
+python3 app.py
 ```
 
 3. **Access the website**:
