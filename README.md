@@ -60,6 +60,7 @@ elroiconnect/
 │   └── search.html
 │
 └── static/              # Static files
+    ├── logo.svg 
     ├── uploads/         # User uploaded photos
     └── videos/          # Introduction videos
         ├── intro1.mp4
