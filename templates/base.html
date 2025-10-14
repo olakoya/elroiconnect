@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}ElroiConnect{% endblock %}</title>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
-        
+
         .navbar {
             background: rgba(255, 255, 255, 0.95);
             padding: 1rem 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
+
         .navbar-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -30,36 +31,49 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
             color: #667eea;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-        
+
         .nav-links a {
             color: #333;
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .nav-links a:hover {
             color: #667eea;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
-        
+
         .card {
             background: white;
             border-radius: 10px;
@@ -67,7 +81,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
-        
+
         .btn {
             padding: 0.75rem 1.5rem;
             border: none;
@@ -78,38 +92,38 @@
             text-decoration: none;
             display: inline-block;
         }
-        
+
         .btn-primary {
             background: #667eea;
             color: white;
         }
-        
+
         .btn-primary:hover {
             background: #5568d3;
             transform: translateY(-2px);
         }
-        
+
         .btn-secondary {
             background: #764ba2;
             color: white;
         }
-        
+
         .btn-danger {
             background: #e74c3c;
             color: white;
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             color: #333;
             font-weight: 500;
         }
-        
+
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -119,43 +133,43 @@
             border-radius: 5px;
             font-size: 1rem;
         }
-        
+
         .form-group textarea {
             min-height: 100px;
             resize: vertical;
         }
-        
+
         .alert {
             padding: 1rem;
             border-radius: 5px;
             margin-bottom: 1rem;
         }
-        
+
         .alert-success {
             background: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-        
+
         .alert-danger {
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-        
+
         .alert-warning {
             background: #fff3cd;
             color: #856404;
             border: 1px solid #ffeaa7;
         }
-        
+
         .profile-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
-        
+
         .profile-card {
             background: white;
             border-radius: 10px;
@@ -163,37 +177,43 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
-        
+
         .profile-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .profile-card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
         }
-        
+
         .profile-card-content {
             padding: 1rem;
         }
-        
+
         .profile-card h3 {
             margin-bottom: 0.5rem;
             color: #333;
         }
-        
+
         .profile-card p {
             color: #666;
             font-size: 0.9rem;
         }
     </style>
+
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="/" class="logo">ElroiConnect</a>
+            <!-- logo anchor moved into the body (valid) -->
+            <a href="{{ url_for('dashboard') }}" class="logo" aria-label="Home">
+                <img src="{{ url_for('static', filename='logo.svg') }}" alt="Elroi Connect logo">
+                <span>ElroiConnect</span>
+            </a>
+
             <ul class="nav-links">
                 {% if session.user_id %}
                     <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
@@ -217,7 +237,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
+
         {% block content %}{% endblock %}
     </div>
 </body>

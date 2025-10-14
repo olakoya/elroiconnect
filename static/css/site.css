@@ -1,0 +1,30 @@
+/* Logo pinned to the far top-left of the viewport */
+.site-logo {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  width: 64px; /* adjust size as desired */
+  height: auto;
+  z-index: 1100;
+  display: block;
+  pointer-events: auto;
+}
+
+/* Ensure other page content does not sit beneath the fixed logo.
+   Use left padding so content starts to the right of the logo. */
+.main-content {
+  padding-left: 88px; /* a bit larger than .site-logo width + gap */
+  padding-top: 8px;
+}
+
+/* Responsive tweaks for small screens */
+@media (max-width: 480px) {
+  .site-logo {
+    width: 48px;
+    top: 6px;
+    left: 6px;
+  }
+  .main-content {
+    padding-left: 64px;
+  }
+}

@@ -7,12 +7,22 @@ import os
 from functools import wraps
 
 app = Flask(__name__)
-# app.config['SECRET_KEY'] = 'your-secret-key-change-this'
+
+# Configuration
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-for-local')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///elroiconnect.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///elroiconnect.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+
+# Security cookie options for production (enable when using HTTPS)
+# app.config['SESSION_COOKIE_SECURE'] = True
+# app.config['SESSION_COOKIE_HTTPONLY'] = True
+# app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+# Database setup
 
 db = SQLAlchemy(app)
 
@@ -70,6 +80,13 @@ def login_required(f):
     return decorated_function
 
 # Routes
+# @app.route('/')
+# def index():
+#     return 'Hello from elroiconnect test app!'
+
+# if __name__ == '__main__':
+#     app.run(debug=True, host='127.0.0.1', port=5000)
+
 @app.route('/')
 def index():
     if 'user_id' in session:
@@ -292,3 +309,4 @@ with app.app_context():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
