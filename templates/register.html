@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
+{% block navbar_logo %}
+<a href="/" class="logo">
+    <img src="{{ url_for('static', filename='logo-icon.svg') }}" alt="ElroiConnect" style="height: 50px;">
+</a>
+{% endblock %}
+
+{% block navbar_center %}
+<div class="navbar-center">
+    <img src="{{ url_for('static', filename='logo-text.svg') }}" alt="ElroiConnect">
+</div>
+{% endblock %}
+
 {% block content %}
 <div class="card" style="max-width: 600px; margin: 2rem auto;">
     <h2 style="color: #667eea; margin-bottom: 2rem;">Create Your Account</h2>

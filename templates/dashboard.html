@@ -1,42 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<header class="site-header">
-  <a href="{{ url_for('dashboard') }}" class="logo-link" aria-label="Home">
-    <img src="{{ url_for('static', filename='logo.svg') }}" alt="Elroi Connect logo" class="site-logo">
-  </a>
-</header>
+<div class="card">
+    <h2 style="color: #667eea; margin-bottom: 1rem;">Welcome, {{ user.first_name }}!</h2>
+    <p style="color: #666;">Discover meaningful connections</p>
+</div>
 
-<!-- Main content container; padding prevents overlap with the fixed logo -->
-<main class="main-content">
-  <div class="card">
-      <h2 style="color: #667eea; margin-bottom: 1rem;">Welcome, {{ user.first_name }}!</h2>
-      <p style="color: #666;">Discover meaningful connections</p>
-  </div>
-
-  <div class="card">
-      <h3 style="margin-bottom: 1.5rem;">Suggested Matches</h3>
-
-      <div class="profile-grid">
-          {% for match in matches %}
-          <div class="profile-card">
-              {% if match.profile_photo %}
-              <img src="{{ url_for('static', filename='uploads/' + match.profile_photo) }}" alt="{{ match.first_name }}">
-              {% else %}
-              <img src="https://via.placeholder.com/250x250?text={{ match.first_name[0] }}" alt="{{ match.first_name }}">
-              {% endif %}
-
-              <div class="profile-card-content">
-                  <h3>{{ match.first_name }}, {{ (now.year - match.date_of_birth.year) if match.date_of_birth else 'N/A' }}</h3>
-                  <p>{{ match.location or 'Location not specified' }}</p>
-                  <p style="margin-top: 0.5rem;">{{ match.bio[:100] if match.bio else 'No bio yet' }}...</p>
-                  <a href="{{ url_for('view_profile', user_id=match.id) }}" class="btn btn-primary" style="width: 100%; margin-top: 1rem; text-align: center;">View Profile</a>
-              </div>
-          </div>
-          {% else %}
-          <p>No matches available at the moment.</p>
-          {% endfor %}
-      </div>
-  </div>
-</main>
+<div class="card">
+    <h3 style="margin-bottom: 1.5rem;">Suggested Matches</h3>
+    
+    <div class="profile-grid">
+        {% for match in matches %}
+        <div class="profile-card">
+            {% if match.profile_photo %}
+            <img src="{{ url_for('static', filename='uploads/' + match.profile_photo) }}" alt="{{ match.first_name }}">
+            {% else %}
+            <img src="https://via.placeholder.com/250x250?text={{ match.first_name[0] }}" alt="{{ match.first_name }}">
+            {% endif %}
+            
+            <div class="profile-card-content">
+                <h3>{{ match.first_name }}, {{ (now.year - match.date_of_birth.year) if match.date_of_birth else 'N/A' }}</h3>
+                <p>{{ match.location or 'Location not specified' }}</p>
+                <p style="margin-top: 0.5rem;">{{ match.bio[:100] if match.bio else 'No bio yet' }}...</p>
+                <a href="{{ url_for('view_profile', user_id=match.id) }}" class="btn btn-primary" style="width: 100%; margin-top: 1rem; text-align: center;">View Profile</a>
+            </div>
+        </div>
+        {% else %}
+        <p>No matches available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

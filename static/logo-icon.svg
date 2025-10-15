@@ -1,0 +1,27 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <circle cx="50" cy="50" r="45" fill="url(#iconGradient)" filter="url(#shadow)"/>
+  <g transform="translate(50, 50)">
+    <rect x="-3" y="-25" width="6" height="50" fill="white" rx="2"/>
+    <rect x="-18" y="-3" width="36" height="6" fill="white" rx="2"/>
+  </g>
+  <g transform="translate(35, 65)">
+    <path d="M 0,-5 C -2,-8 -6,-8 -8,-5 C -10,-2 -10,2 -5,7 L 0,10 L -5,7 C -10,2 -10,-2 -8,-5 C -6,-8 -2,-8 0,-5 Z" fill="url(#heartGradient)" opacity="0.9"/>
+  </g>
+  <g transform="translate(65, 65)">
+    <path d="M 0,-5 C -2,-8 -6,-8 -8,-5 C -10,-2 -10,2 -5,7 L 0,10 L -5,7 C -10,2 -10,-2 -8,-5 C -6,-8 -2,-8 0,-5 Z" fill="url(#heartGradient)" opacity="0.9"/>
+  </g>
+  <line x1="35" y1="72" x2="65" y2="72" stroke="white" stroke-width="2" opacity="0.6"/>
+</svg>
