@@ -45,6 +45,8 @@ elroiconnect/
 │
 ├── app.py                 # Main application file
 ├── requirements.txt       # Python dependencies
+├── venv
+├── instance
 │
 ├── templates/            # HTML templates
 │   ├── base.html
@@ -60,12 +62,19 @@ elroiconnect/
 │   └── search.html
 │
 └── static/              # Static files
-    ├── logo.svg 
+    ├── logo.svg
+    ├── logo-icon.svg    # Icon only
+│   ├── logo-text.svg    # Text only
     ├── uploads/         # User uploaded photos
     └── videos/          # Introduction videos
+        ├── intro0.mp4
         ├── intro1.mp4
         ├── intro2.mp4
-        └── intro3.mp4
+        ├── intro3.mp4
+        ├── intro4.mp4
+        ├── intro5.mp4
+        ├── intro6.mp4
+        └── intro7.mp4
 ```
 
 ### 4. Setup Steps
