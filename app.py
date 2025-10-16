@@ -171,7 +171,8 @@ def dashboard():
     else:
         matches = User.query.filter_by(gender='Male', is_active=True).filter(User.id != user.id).limit(10).all()
     
-    return render_template('dashboard.html', user=user, matches=matches)
+    return render_template('dashboard.html', user=user, matches=matches, now=datetime.now())
+
 
 @app.route('/profile/<int:user_id>')
 @login_required
@@ -182,7 +183,7 @@ def view_profile(user_id):
     # Check if already liked
     already_liked = Like.query.filter_by(user_id=current_user.id, liked_user_id=user_id).first()
     
-    return render_template('profile.html', user=user, already_liked=already_liked)
+    return render_template('profile.html', user=user, already_liked=already_liked, now=datetime.now())
 
 @app.route('/edit-profile', methods=['GET', 'POST'])
 @login_required
@@ -298,7 +299,7 @@ def search():
     
     users = users.all()
     
-    return render_template('search.html', users=users, query=query)
+    return render_template('search.html', users=users, query=query, now=datetime.now())
 
 # Initialize database
 with app.app_context():
