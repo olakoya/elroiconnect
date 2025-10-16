@@ -64,7 +64,7 @@ elroiconnect/
 └── static/              # Static files
     ├── logo.svg
     ├── logo-icon.svg    # Icon only
-│   ├── logo-text.svg    # Text only
+    ├── logo-text.svg    # Text only
     ├── uploads/         # User uploaded photos
     └── videos/          # Introduction videos
         ├── intro0.mp4
