@@ -46,7 +46,7 @@ elroiconnect/
 ├── app.py                 # Main application file
 ├── requirements.txt       # Python dependencies
 ├── venv
-├── instance
+├── instance              # Database
 │
 ├── templates/            # HTML templates
 │   ├── base.html
