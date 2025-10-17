@@ -7,7 +7,7 @@
             {% if user.profile_photo %}
             <img src="{{ url_for('static', filename='uploads/' + user.profile_photo) }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
             {% else %}
-            <img src="https://via.placeholder.com/300x400?text={{ user.first_name[0] }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
+            <img src="{{ url_for('static', filename='default-male.png' if user.gender == 'Male' else 'default-female.png') }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
             {% endif %}
         </div>
         
