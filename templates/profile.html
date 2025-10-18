@@ -5,16 +5,16 @@
     <div style="display: grid; grid-template-columns: 300px 1fr; gap: 2rem;">
         <div>
             {% if user.profile_photo %}
-            <img src="{{ url_for('static', filename='uploads/' + user.profile_photo) }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
+            <img src="{{ url_for('static', filename='uploads/' ~ user.profile_photo) }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
             {% else %}
-            <img src="{{ url_for('static', filename='default-male.png' if user.gender == 'Male' else 'default-female.png') }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
+            <img src="{{ url_for('static', filename=( 'default-male.png' if user.gender == 'Male' else 'default-female.png' )) }}" alt="{{ user.first_name }}" style="width: 100%; border-radius: 10px;">
             {% endif %}
         </div>
         
         <div>
             <h2 style="color: #667eea; margin-bottom: 0.5rem;">{{ user.first_name }} {{ user.last_name }}</h2>
             <p style="color: #666; margin-bottom: 1rem;">
-                {% if user.date_of_birth %}
+                {% if user.date_of_birth and now %}
                 {{ (now.year - user.date_of_birth.year) }} years old
                 {% endif %}
                 {% if user.location %} • {{ user.location }}{% endif %}
@@ -42,7 +42,7 @@
             </div>
             {% endif %}
             
-            {% if user.id != session.user_id %}
+            {% if user.id != session.get('user_id') %}
             <div style="display: flex; gap: 1rem; margin-top: 2rem;">
                 <button onclick="likeUser({{ user.id }})" class="btn btn-primary" id="likeBtn" {% if already_liked %}disabled{% endif %}>
                     {% if already_liked %}Liked{% else %}Like{% endif %}
