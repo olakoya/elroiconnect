@@ -13,9 +13,9 @@
         {% for match in matches %}
         <div class="profile-card">
             {% if match.profile_photo %}
-            <img src="{{ url_for('static', filename='uploads/' + match.profile_photo) }}" alt="{{ match.first_name }}">
+            <img src="{{ url_for('static', filename='uploads/' + match.profile_photo) }}" alt="{{ match.first_name }}" style="width: 100%; height: 250px; object-fit: cover;">
             {% else %}
-            <img src="https://via.placeholder.com/250x250?text={{ match.first_name[0] }}" alt="{{ match.first_name }}">
+            <img src="{{ url_for('static', filename='default-male.png' if match.gender == 'Male' else 'default-female.png') }}" alt="{{ match.first_name }}" style="width: 100%; height: 250px; object-fit: cover;">
             {% endif %}
             
             <div class="profile-card-content">
